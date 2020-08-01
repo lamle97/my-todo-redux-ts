@@ -1,9 +1,22 @@
 import React, { ReactNode } from "react";
 
-interface Props {}
+interface Props {
+  onClick?: () => void;
+  isCompleted?: boolean;
+  text: string;
+}
 
 export class Todo extends React.Component<Props> {
   render(): ReactNode {
-    return <div>"Hehehehehe"</div>;
+    return (
+      <li
+        onClick={this.props.onClick}
+        style={{
+          textDecoration: this.props.isCompleted ? "line-through" : "none",
+        }}
+      >
+        {this.props.text}
+      </li>
+    );
   }
 }
