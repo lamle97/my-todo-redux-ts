@@ -1,4 +1,4 @@
 import { TodoList } from "./todo-list";
 import { VisibilityFilter } from "./visibility-filters";
-
-export { VisibilityFilter, TodoList };
+import { AddTodoForm } from "./addTodoForm";
+export { VisibilityFilter, TodoList, AddTodoForm };

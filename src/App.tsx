@@ -1,13 +1,14 @@
 import React, { ReactNode } from "react";
 import "./App.css";
 import { VisibilityFilter, TodoList } from "./components";
-import AddTodoContainer from "./containers/addTodo";
-
-export class App extends React.Component {
+import { AddTodo } from "./containers";
+interface State {}
+interface Props {}
+export class App extends React.Component<Props, State> {
   render(): ReactNode {
     return (
       <div>
-        <AddTodoContainer />
+        <AddTodo />
         <VisibilityFilter />
         <TodoList />
       </div>
