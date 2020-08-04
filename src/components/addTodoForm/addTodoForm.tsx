@@ -1,36 +1,58 @@
 import React, { ReactNode } from "react";
 interface Props {
-  content: string;
-  placeholder?: string;
-  onChangeText?: (text: string) => void;
-  onSubmit?: () => void;
+	placeholder?: string;
+	onChangeText?: (text: string) => void;
+	onSubmit?: (text: string) => void;
+}
+
+interface State {
+	text: string;
 }
 
 export class AddTodoForm extends React.Component<Props> {
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const { onChangeText } = this.props;
-    if (onChangeText) {
-      onChangeText(e.target.value);
-    }
-  };
-  // handleClick = (e: React.DOMAttributes<HTMLButtonElement>): void => {
-  //   const node = findDOMNode(this.refs.input);
-  //   const content = node?.nodeValue?.trim();
-  //   this.props.onAddClick(content);
-  // };
-  render(): ReactNode {
-    const { content, placeholder, onSubmit } = this.props;
-    return (
-      <div>
-        <input
-          placeholder={placeholder}
-          value={content}
-          onChange={this.handleChange}
-        />
-        <button className="button" onClick={onSubmit}>
-          Add
-        </button>
-      </div>
-    );
-  }
+	state = {
+		text: "",
+	};
+
+	handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+		const { onChangeText } = this.props;
+		const text = e.target.value;
+		if (onChangeText) {
+			onChangeText(e.target.value);
+		}
+		this.setState({ text });
+	};
+	// handleClick = (e: React.DOMAttributes<HTMLButtonElement>): void => {
+	//   const node = findDOMNode(this.refs.input);
+	//   const content = node?.nodeValue?.trim();
+	//   this.props.onAddClick(content);
+	// };
+
+	handleSubmit = (): void => {
+		const { onSubmit } = this.props;
+		const { text } = this.state;
+		if (onSubmit) {
+			onSubmit(text);
+		}
+
+		// reset text input
+		this.setState({ text: "" });
+	};
+
+	render(): ReactNode {
+		const { placeholder } = this.props;
+		const { text } = this.state;
+		return (
+			<div>
+				<input
+					placeholder={placeholder}
+					value={text}
+					onChange={this.handleChange}
+				/>
+				<button className="button" onClick={this.handleSubmit}>
+					Add
+				</button>
+			</div>
+		);
+	}
 }
