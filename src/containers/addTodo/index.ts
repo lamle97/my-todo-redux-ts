@@ -1,2 +1,2 @@
-import { AddTodo } from "./addTodo";
+import AddTodo from "./addTodo";
 export { AddTodo };

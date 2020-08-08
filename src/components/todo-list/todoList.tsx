@@ -1,53 +1,41 @@
 import React, { ReactNode } from "react";
-import { connect, ConnectedProps } from "react-redux";
-import { toggleTodo } from "../../actions/todos";
-import { Store } from "../../stores";
-const mapDispatchToProps = {
-  toggleTodo,
-};
-const mapStateToProps = (store: Store) => {
-  const { todos } = store;
-  const { byIds } = todos;
-  //Get all keys of Map
-  const keys = Object.keys;
-  //Conver Object to Array to Render on React
-  //Object.keys => return all key on Object
-  const mapKeyToValue = (
-    key: string
-  ): {
-    content: string;
-    id: number;
-    isCompleted: boolean;
-  } => {
-    //+key => convert string to number
-    return byIds[+key];
+import { Todo } from "../todo";
+export interface TodoType {
+  id: number;
+  content: string;
+  isCompleted: boolean;
+}
+interface Props {
+  todos: TodoType[];
+  onClickItem?: (item: TodoType) => void;
+}
+
+export class TodoList extends React.Component<Props> {
+  state = {
+    todos: [],
   };
-  const todoList = keys(byIds).map(mapKeyToValue);
-  return {
-    todos: todoList,
+  handleClickItem = (todo: TodoType): void => {
+    const { onClickItem } = this.props;
+    onClickItem && onClickItem(todo);
   };
-};
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
-
-type ConnectorType = ConnectedProps<typeof connector>;
-
-type Props = ConnectorType & {};
-class TodoList extends React.Component<Props> {
-  renderTodo(): ReactNode {
-    return this.props.todos.map(
-      (item: {
-        content: string;
-        id: number;
-        isCompleted: boolean;
-      }): ReactNode => {
-        return <div>{item.content}</div>;
+  renderTodos(): ReactNode {
+    const { todos } = this.state;
+    return todos.map(
+      (todo: TodoType): ReactNode => {
+        return (
+          <div key={`${"todoitem" + todo.id}`}>
+            <Todo
+              onClick={(): void => this.handleClickItem(todo)}
+              text={todo.content}
+              isCompleted={todo.isCompleted}
+            />
+          </div>
+        );
       }
     );
   }
   render(): ReactNode {
-    const { todos } = this.props;
-    return <div>{this.renderTodo()}</div>;
+    return <div>{this.renderTodos()}</div>;
   }
 }
-export default connector(TodoList);

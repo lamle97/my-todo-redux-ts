@@ -8,15 +8,16 @@ interface Props {
 
 export class Todo extends React.Component<Props> {
   render(): ReactNode {
+    const { onClick, isCompleted, text } = this.props;
     return (
-      <li
-        onClick={this.props.onClick}
+      <div
+        onClick={onClick}
         style={{
-          textDecoration: this.props.isCompleted ? "line-through" : "none",
+          textDecoration: isCompleted ? "line-through" : "none",
         }}
       >
-        {this.props.text}
-      </li>
+        {text}
+      </div>
     );
   }
 }

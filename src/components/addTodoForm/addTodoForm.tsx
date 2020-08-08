@@ -1,34 +1,45 @@
 import React, { ReactNode } from "react";
+
 interface Props {
-  content: string;
   placeholder?: string;
   onChangeText?: (text: string) => void;
-  onSubmit?: () => void;
+  onSubmit?: (text: string) => void;
 }
 
 export class AddTodoForm extends React.Component<Props> {
-  handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  state = {
+    text: "",
+  };
+  handleOnChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { onChangeText } = this.props;
+    const text = e.target.value;
     if (onChangeText) {
       onChangeText(e.target.value);
     }
+    this.setState({ text });
   };
-  // handleClick = (e: React.DOMAttributes<HTMLButtonElement>): void => {
-  //   const node = findDOMNode(this.refs.input);
-  //   const content = node?.nodeValue?.trim();
-  //   this.props.onAddClick(content);
-  // };
+  handleOnSubmit = (): void => {
+    const { onSubmit } = this.props;
+    const { text } = this.state;
+    if (onSubmit) {
+      onSubmit(text);
+    }
+
+    // reset text input
+    this.setState({ text: "" });
+  };
   render(): ReactNode {
-    const { content, placeholder, onSubmit } = this.props;
+    const { placeholder } = this.props;
+    const { text } = this.state;
     return (
       <div>
         <input
           placeholder={placeholder}
-          value={content}
-          onChange={this.handleChange}
+          value={text}
+          onChange={this.handleOnChange}
         />
-        <button className="button" onClick={onSubmit}>
-          Add
+        <button className="button" onClick={this.handleOnSubmit}>
+          ADD
         </button>
       </div>
     );
