@@ -1,2 +1,4 @@
 import { AddTodo } from "./addTodo";
-export { AddTodo };
+import { TodoList } from "./todo-list";
+
+export { AddTodo, TodoList };

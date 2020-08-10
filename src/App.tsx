@@ -1,19 +1,20 @@
 import React, { ReactNode } from "react";
 
 import "./App.css";
-import { VisibilityFilter, TodoList, AddTodoForm } from "./components";
+import { VisibilityFilter } from "./components";
+import { AddTodo, TodoList } from "./containers";
 interface State {}
 interface Props {}
 export class App extends React.Component<Props, State> {
-  render(): ReactNode {
-    return (
-      <div>
-        <AddTodoForm />
-        <VisibilityFilter />
-        <TodoList />
-      </div>
-    );
-  }
+	render(): ReactNode {
+		return (
+			<div>
+				<AddTodo />
+				<VisibilityFilter />
+				<TodoList />
+			</div>
+		);
+	}
 }
 
 export default App;
