@@ -7,7 +7,7 @@ export interface TodoType {
 }
 interface Props {
   todos: TodoType[];
-  onClickItem?: (item: TodoType) => void;
+  onTodoClick?: (id: number) => void;
 }
 
 export class TodoList extends React.Component<Props> {
@@ -15,18 +15,20 @@ export class TodoList extends React.Component<Props> {
     todos: [],
   };
   handleClickItem = (todo: TodoType): void => {
-    const { onClickItem } = this.props;
-    onClickItem && onClickItem(todo);
+    const { onTodoClick } = this.props;
+    onTodoClick && onTodoClick(todo.id);
   };
 
   renderTodos(): ReactNode {
-    const { todos } = this.state;
+    const { todos } = this.props;
     return todos.map(
       (todo: TodoType): ReactNode => {
         return (
           <div key={`${"todoitem" + todo.id}`}>
             <Todo
-              onClick={(): void => this.handleClickItem(todo)}
+              onClick={(): void => {
+                this.handleClickItem(todo);
+              }}
               text={todo.content}
               isCompleted={todo.isCompleted}
             />
@@ -36,6 +38,7 @@ export class TodoList extends React.Component<Props> {
     );
   }
   render(): ReactNode {
+    //const { todos } = this.state;
     return <div>{this.renderTodos()}</div>;
   }
 }

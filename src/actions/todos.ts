@@ -15,6 +15,7 @@ export interface ToggleTodo {
     id: number;
   };
 }
+
 export function addTodo(content: string): AddTodo {
   nextId++;
   return {
