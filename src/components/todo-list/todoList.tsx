@@ -7,7 +7,7 @@ export interface TodoType {
 }
 interface Props {
   todos: TodoType[];
-  onTodoClick?: (id: number) => void;
+  onTodoClick?: (todo: TodoType) => void;
 }
 
 export class TodoList extends React.Component<Props> {
@@ -16,7 +16,7 @@ export class TodoList extends React.Component<Props> {
   };
   handleClickItem = (todo: TodoType): void => {
     const { onTodoClick } = this.props;
-    onTodoClick && onTodoClick(todo.id);
+    onTodoClick && onTodoClick(todo);
   };
 
   renderTodos(): ReactNode {
