@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import { Todo } from "../todo";
+import { FilterType } from "../../constants/types";
 export interface TodoType {
   id: number;
   content: string;
@@ -7,27 +8,37 @@ export interface TodoType {
 }
 interface Props {
   todos: TodoType[];
-  onTodoClick?: (todo: TodoType) => void;
+  onTodoClick?: (id: number) => void;
+  filter?: FilterType;
 }
 
 export class TodoList extends React.Component<Props> {
   state = {
     todos: [],
   };
-  handleClickItem = (todo: TodoType): void => {
+  handleClickItem = (id: number): void => {
     const { onTodoClick } = this.props;
-    onTodoClick && onTodoClick(todo);
+    onTodoClick && onTodoClick(id);
   };
 
   renderTodos(): ReactNode {
-    const { todos } = this.props;
-    return todos.map(
+    const { todos, filter } = this.props;
+    let filteredList = todos;
+
+    if (filter === FilterType.ALL) {
+      filteredList = todos;
+    } else if (filter === FilterType.INCOMPLETED) {
+      filteredList = todos.filter((todo) => !todo.isCompleted);
+    } else if (filter === FilterType.COMPLETED) {
+      filteredList = todos.filter((todo) => todo.isCompleted);
+    }
+    return filteredList.map(
       (todo: TodoType): ReactNode => {
         return (
           <div key={`${"todoitem" + todo.id}`}>
             <Todo
-              onClick={(): void => {
-                this.handleClickItem(todo);
+              onClick={() => {
+                this.handleClickItem(todo.id);
               }}
               text={todo.content}
               isCompleted={todo.isCompleted}

@@ -1,5 +1,6 @@
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { toggleTodo } from "../../actions/todos";
+
 import { Store } from "../../stores";
 import { TodoList } from "../../components/todo-list";
 //import { Todo } from "../../components/todo";
@@ -14,7 +15,7 @@ const mapStateToProps = (store: Store) => {
 
   //Get all keys of Map
   const keys = Object.keys;
-  //Conver Object to Array to Render on React
+  //Convert Object to Array to Render on React
   //Object.keys => return all key on Object
   const mapKeyToValue = (
     key: string
@@ -34,7 +35,7 @@ const mapStateToProps = (store: Store) => {
 //mapStateToProps returen todo list
 const connector = connect(mapStateToProps, mapDispatchToProps);
 
-// type ConnectorType = ConnectedProps<typeof connector>;
+type ConnectorType = ConnectedProps<typeof connector>;
 
-// type Props = ConnectorType & {};
+type Props = ConnectorType & {};
 export default connector(TodoList);

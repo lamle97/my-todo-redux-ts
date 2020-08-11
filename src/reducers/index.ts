@@ -3,6 +3,6 @@ import { todosReducer } from "./todos";
 import { visibilityFilter } from "./visibility-filters";
 
 export const rootReducer = combineReducers({
-  todosReducer,
+  todos: todosReducer,
   visibilityFilter,
 });
