@@ -3,11 +3,12 @@ import { setFilter } from "../../actions/visibility-filters";
 import { VisibilityFilter } from "../../components/visibility-filters";
 import { Store } from "../../stores";
 const mapDispatchToProps = {
-  //Binding addtoto action to onSubmit event
+  //Binding Setfilter action to Visible-filter trong component
   setFilter: setFilter,
 };
 const mapStateToProps = (store: Store) => {
-  return store.visibilityFilters;
+  const { visibilityFilters } = store;
+  return visibilityFilters;
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

@@ -10,7 +10,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = (store: Store) => {
-  const { todos } = store;
+  const { todos, visibilityFilters } = store;
   const { byIds } = todos;
 
   //Get all keys of Map
@@ -30,6 +30,7 @@ const mapStateToProps = (store: Store) => {
   const todoList = keys(byIds).map(mapKeyToValue);
   return {
     todos: todoList,
+    filter: visibilityFilters,
   };
 };
 //mapStateToProps returen todo list

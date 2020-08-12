@@ -9,12 +9,13 @@ export interface TodoType {
 interface Props {
   todos: TodoType[];
   onTodoClick?: (id: number) => void;
-  filter?: FilterType;
+  filter: FilterType;
 }
 
 export class TodoList extends React.Component<Props> {
   state = {
     todos: [],
+    filter: FilterType.ALL,
   };
   handleClickItem = (id: number): void => {
     const { onTodoClick } = this.props;

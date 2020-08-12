@@ -9,7 +9,6 @@ export class App extends React.Component<Props, State> {
       <div>
         <AddTodo />
         <TodoList />
-
         <VisibilityFilter />
       </div>
     );
