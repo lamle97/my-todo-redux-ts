@@ -4,7 +4,6 @@ import { toggleTodo } from "../../actions/todos";
 import { Store } from "../../stores";
 import { TodoList } from "../../components/todo-list";
 import { FilterType } from "../../constants/types";
-
 //import { Todo } from "../../components/todo";
 const mapDispatchToProps = {
   //Binding onClickItem action to todoList presentation component
