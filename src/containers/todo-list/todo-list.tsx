@@ -3,6 +3,8 @@ import { toggleTodo } from "../../actions/todos";
 
 import { Store } from "../../stores";
 import { TodoList } from "../../components/todo-list";
+import { FilterType } from "../../constants/types";
+
 //import { Todo } from "../../components/todo";
 const mapDispatchToProps = {
   //Binding onClickItem action to todoList presentation component
@@ -28,8 +30,22 @@ const mapStateToProps = (store: Store) => {
     return byIds[+key];
   };
   const todoList = keys(byIds).map(mapKeyToValue);
+  const filteredTodo = todoList.filter(
+    (todo: { content: string; id: number; isCompleted: boolean }): boolean => {
+      switch (visibilityFilters) {
+        case FilterType.ALL:
+          return true;
+        case FilterType.COMPLETED:
+          return todo.isCompleted;
+        case FilterType.INCOMPLETED:
+          return !todo.isCompleted;
+        default:
+          return true;
+      }
+    }
+  );
   return {
-    todos: todoList,
+    todos: filteredTodo,
     filter: visibilityFilters,
   };
 };

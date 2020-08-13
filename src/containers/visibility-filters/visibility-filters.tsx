@@ -8,7 +8,7 @@ const mapDispatchToProps = {
 };
 const mapStateToProps = (store: Store) => {
   const { visibilityFilters } = store;
-  return visibilityFilters;
+  return { filter: visibilityFilters };
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);
