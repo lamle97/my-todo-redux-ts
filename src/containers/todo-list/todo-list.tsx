@@ -30,6 +30,8 @@ const mapStateToProps = (store: Store) => {
     return byIds[+key];
   };
   const todoList = keys(byIds).map(mapKeyToValue);
+
+  // filter todo item by visibility filter type
   const filteredTodo = todoList.filter(
     (todo: { content: string; id: number; isCompleted: boolean }): boolean => {
       switch (visibilityFilters) {
